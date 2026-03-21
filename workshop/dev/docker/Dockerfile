@@ -29,7 +29,7 @@ RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o 
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null && \
     apt-get update && apt-get install -y \
     ros-humble-desktop ros-humble-ros-core ros-dev-tools python3-colcon-common-extensions \
-    ros-humble-moveit2 ros-humble-pymoveit2 ros-humble-xacro ros-humble-joint-state-publisher-gui \
+    ros-humble-moveit ros-humble-xacro ros-humble-joint-state-publisher-gui \
     ros-humble-ros2-control ros-humble-ros2-controllers ros-humble-gazebo-ros2-control \
     && rm -rf /var/lib/apt/lists/*
 
@@ -56,7 +56,7 @@ RUN mkdir -p /opt/uv_cache /opt/uv_python && \
 
 # 8. Install PyTorch & Additional Simulation Tools inside the uv venv
 RUN uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 && \
-    uv pip install mujoco opencv-python mediapipe transformers accelerate datasets einops
+    uv pip install mujoco opencv-python mediapipe transformers accelerate datasets einops pymoveit2
 
 # Bridge scripts use system python3 in ROS launch; keep mujoco available there too.
 RUN python3 -m pip install --no-cache-dir mujoco
